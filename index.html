@@ -1,0 +1,580 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mehar | Premium Portal</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+:root {
+  --primary: #ff4d8d;
+  --secondary: #8b5cf6;
+  --dark: #100e20;
+  --card: rgba(255,255,255,.09);
+}
+
+body {
+  min-height: 100vh;
+  color: white;
+  background: var(--dark);
+  overflow-x: hidden;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 20%, #642b7770, transparent 35%),
+    radial-gradient(circle at 85% 75%, #ff4d8d40, transparent 35%),
+    linear-gradient(135deg, #100e20, #20123b);
+}
+
+.orb {
+  position: fixed;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  filter: blur(75px);
+  opacity: .4;
+  background: #a855f7;
+  animation: float 8s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+.orb.one { top: 5%; left: 5%; }
+.orb.two {
+  bottom: 5%;
+  right: 5%;
+  background: #ff4d8d;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  to { transform: translate(60px, 40px) scale(1.3); }
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.panel {
+  width: 100%;
+  max-width: 420px;
+  padding: 38px;
+  background: var(--card);
+  border: 1px solid #ffffff25;
+  border-radius: 25px;
+  backdrop-filter: blur(22px);
+  box-shadow: 0 25px 80px #0005;
+  animation: appear .7s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.brand-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  font-size: 25px;
+  font-weight: 900;
+  box-shadow: 0 8px 25px #ff4d8d40;
+}
+
+.brand-name {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.brand-name span {
+  color: #ff76aa;
+}
+
+h1 {
+  font-size: 29px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #b9b4ce;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.field { margin-bottom: 19px; }
+
+label {
+  display: block;
+  font-size: 13px;
+  color: #e2dff0;
+  margin-bottom: 9px;
+}
+
+.input-wrap { position: relative; }
+
+input {
+  width: 100%;
+  padding: 14px 15px;
+  background: #0f0c1f9c;
+  border: 1px solid #ffffff20;
+  border-radius: 12px;
+  color: white;
+  outline: none;
+  font-size: 14px;
+  transition: .25s;
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px #ff4d8d20;
+}
+
+input::placeholder { color: #817b98; }
+
+.password-input { padding-right: 65px; }
+
+.show-pass {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ff9abd;
+  cursor: pointer;
+  font-size: 12px;
+  user-select: none;
+}
+
+.row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  margin: 4px 0 24px;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #c8c3da;
+  margin: 0;
+}
+
+.remember input {
+  width: 15px;
+  accent-color: var(--primary);
+}
+
+a {
+  color: #ff8cb6;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover { text-decoration: underline; }
+
+.btn {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(100deg, var(--primary), var(--secondary));
+  color: white;
+  font-size: 15px;
+  font-weight: 750;
+  cursor: pointer;
+  box-shadow: 0 8px 25px #8b5cf640;
+  transition: .25s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px #8b5cf660;
+}
+
+.btn:active { transform: scale(.98); }
+
+.message {
+  min-height: 20px;
+  font-size: 12px;
+  color: #ff9abd;
+  margin: 12px 0;
+  text-align: center;
+}
+
+.bottom-text {
+  text-align: center;
+  color: #aaa4c0;
+  font-size: 12px;
+  margin-top: 23px;
+}
+
+.hidden { display: none !important; }
+
+/* Dashboard */
+
+.dashboard {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px 20px 50px;
+  animation: appear .6s ease;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #ffffff20;
+}
+
+.topbar .brand { margin: 0; }
+
+.logout {
+  border: 1px solid #ffffff30;
+  background: #ffffff10;
+  color: white;
+  padding: 11px 19px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.logout:hover { background: #ff4d8d30; }
+
+.hero {
+  padding: 45px 0 30px;
+}
+
+.eyebrow {
+  color: #ff8cb6;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.hero h1 {
+  font-size: clamp(30px, 5vw, 48px);
+  line-height: 1.2;
+}
+
+.hero h1 span {
+  background: linear-gradient(90deg, #ff76aa, #b9a0ff);
+  color: transparent;
+  background-clip: text;
+}
+
+.clock {
+  margin-top: 18px;
+  color: #b9b4ce;
+  font-size: 14px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.card {
+  padding: 25px;
+  background: var(--card);
+  border: 1px solid #ffffff20;
+  border-radius: 20px;
+  transition: .25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #ff76aa70;
+}
+
+.card-icon {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.card h3 { margin-bottom: 10px; }
+
+.card p {
+  color: #b9b4ce;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.card button {
+  margin-top: 17px;
+  padding: 10px 13px;
+  border: 1px solid #ffffff30;
+  background: #ffffff10;
+  color: white;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.footer {
+  text-align: center;
+  color: #89839f;
+  font-size: 12px;
+  padding-top: 35px;
+}
+
+@media(max-width: 480px) {
+  .panel { padding: 28px 22px; }
+  .row-between { align-items: flex-start; }
+  .hero { padding-top: 35px; }
+}
+</style>
+</head>
+
+<body>
+<div class="background"></div>
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+<!-- LOGIN PAGE -->
+<main class="page" id="loginPage">
+  <section class="panel">
+    <div class="brand">
+      <div class="brand-icon">M</div>
+      <div class="brand-name">MEHAR<span>.</span></div>
+    </div>
+
+    <h1>Welcome Back 👋</h1>
+    <p class="subtitle">
+      Apni duniya mein wapas aao. Login karo aur apna dashboard explore karo.
+    </p>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="username">Username ya Email</label>
+        <input id="username" type="text"
+          placeholder="Apna username likho"
+          autocomplete="username" required>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <input id="password" class="password-input"
+            type="password" placeholder="Apna password likho"
+            autocomplete="current-password" required>
+          <span class="show-pass" id="togglePassword">Show</span>
+        </div>
+      </div>
+
+      <div class="row-between">
+        <label class="remember">
+          <input type="checkbox" id="remember">
+          Remember me
+        </label>
+        <a href="#" id="forgotLink">Forgot password?</a>
+      </div>
+
+      <button class="btn" id="loginButton" type="submit">
+        Login to Mehar →
+      </button>
+
+      <p class="message" id="message" role="status"></p>
+    </form>
+
+    <p class="bottom-text">
+      Made with ♥ by Mehar
+    </p>
+  </section>
+</main>
+
+<!-- DASHBOARD PAGE -->
+<section id="dashboardPage" class="dashboard hidden">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">M</div>
+      <div class="brand-name">MEHAR<span>.</span></div>
+    </div>
+    <button class="logout" id="logoutButton">Logout ↗</button>
+  </header>
+
+  <div class="hero">
+    <p class="eyebrow">Your personal space</p>
+    <h1>Welcome, <span id="welcomeName">Mehar</span>!</h1>
+    <p class="subtitle">
+      Khushi se explore karo. Tumhara dashboard tayyar hai.
+    </p>
+    <div class="clock" id="clock"></div>
+  </div>
+
+  <div class="cards">
+    <article class="card">
+      <div class="card-icon">✨</div>
+      <h3>My Profile</h3>
+      <p>Apni personal welcome details dekho.</p>
+      <button data-action="profile">Open Profile</button>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">🎨</div>
+      <h3>Appearance</h3>
+      <p>Website ka accent color badlo.</p>
+      <button data-action="theme">Change Theme</button>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">💌</div>
+      <h3>Messages</h3>
+      <p>Apne liye ek pyara sa message dekho.</p>
+      <button data-action="message">Open Message</button>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">🕒</div>
+      <h3>Live Clock</h3>
+      <p>Current date aur time dashboard par dekho.</p>
+      <button data-action="time">Show Date</button>
+    </article>
+  </div>
+
+  <footer class="footer">
+    © <span id="year"></span> Mehar. All rights reserved.
+  </footer>
+</section>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+const loginPage = $("loginPage");
+const dashboardPage = $("dashboardPage");
+const loginForm = $("loginForm");
+const username = $("username");
+const password = $("password");
+const message = $("message");
+
+let themeIndex = 0;
+
+$("togglePassword").addEventListener("click", () => {
+  const hidden = password.type === "password";
+  password.type = hidden ? "text" : "password";
+  $("togglePassword").textContent = hidden ? "Hide" : "Show";
+});
+
+$("forgotLink").addEventListener("click", (event) => {
+  event.preventDefault();
+  message.textContent =
+    "Password reset ke liye website administrator se rabta karein.";
+});
+
+loginForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const name = username.value.trim();
+
+  if (!name || !password.value) {
+    message.textContent = "Please tamam fields fill karo.";
+    return;
+  }
+
+  // Demo only: this does NOT verify a real account.
+  $("welcomeName").textContent = name.split("@")[0];
+  loginPage.classList.add("hidden");
+  dashboardPage.classList.remove("hidden");
+  document.title = "Mehar | Dashboard";
+
+  updateClock();
+});
+
+$("logoutButton").addEventListener("click", () => {
+  dashboardPage.classList.add("hidden");
+  loginPage.classList.remove("hidden");
+  password.value = "";
+  message.textContent = "";
+  document.title = "Mehar | Premium Portal";
+});
+
+$("dashboardPage").addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+
+  switch (button.dataset.action) {
+    case "profile":
+      alert("Welcome, " + $("welcomeName").textContent +
+        "! Yeh tumhara Mehar demo profile hai.");
+      break;
+
+    case "theme": {
+      const themes = [
+        ["#ff4d8d", "#8b5cf6"],
+        ["#06b6d4", "#2563eb"],
+        ["#f59e0b", "#ef4444"],
+        ["#34d399", "#0d9488"]
+      ];
+
+      themeIndex = (themeIndex + 1) % themes.length;
+      document.documentElement.style.setProperty(
+        "--primary", themes[themeIndex][0]
+      );
+      document.documentElement.style.setProperty(
+        "--secondary", themes[themeIndex][1]
+      );
+      break;
+    }
+
+    case "message":
+      alert("Mehar ki taraf se: Hamesha khush raho aur muskurate raho! 💖");
+      break;
+
+    case "time":
+      alert("Aaj ki date: " + new Date().toLocaleString());
+      break;
+  }
+});
+
+function updateClock() {
+  $("clock").textContent = new Date().toLocaleString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+  $("year").textContent = new Date().getFullYear();
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
